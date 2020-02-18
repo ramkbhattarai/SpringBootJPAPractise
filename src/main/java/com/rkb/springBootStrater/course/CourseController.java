@@ -11,36 +11,40 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rkb.springBootStrater.topic.Topic;
+
 @RestController
 public class CourseController {
 	
 	@Autowired
 	private CourseService courseService;
-	@GetMapping("/courses")
-	public List<Course> getAllCourses() {
+	@GetMapping("/topics/{topicId}/courses")
+	public List<Course> getAllCourses(@PathVariable int topicId) {
 		
 		
-		return courseService.getAllCourses();
+		return courseService.getAllCourses(topicId);
 	}
 	
-	@GetMapping("/courses/{id}")
-	public Course getCourse(@PathVariable int id) {
-		return courseService.getCourse(id);
+	@GetMapping("/topics/{topicId}/courses/{courseId}")
+	public Course getCourse(@PathVariable int courseId) {
+		return courseService.getCourse(courseId);
 	}
 	
-	@PostMapping("/courses")
-	public void addCourse(@RequestBody Course course) {
+	@PostMapping("/topics/{topicId}/courses")
+	public void addCourse(@RequestBody Course course,@PathVariable int topicId) {
+		course.setTopic(new Topic(topicId, "",""));
 		courseService.addCourse(course);
 	}
 	
-	@PutMapping("/courses/{id}")
-	public void updateCourse(@RequestBody Course course, @PathVariable int id) {
-		courseService.update(course, id);
+	@PutMapping("/topics/{topicId}/courses/{courseId}")
+	public void updateCourse(@RequestBody Course course, @PathVariable int courseid,@PathVariable int topicId) {
+		course.setTopic(new Topic(topicId, "",""));
+		courseService.update(course, courseid);
 	}
 	
-	@DeleteMapping("/courses/{id}")
-	public void deleteCourse(@PathVariable int id) {
-		courseService.delete(id);
+	@DeleteMapping("/topics/{topicId}/courses/{courseId}")
+	public void deleteCourse(@PathVariable int courseId) {
+		courseService.delete(courseId);
 	}
 
 }
