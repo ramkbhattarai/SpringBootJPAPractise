@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TopicService {
-	
+	@Autowired
+	private TopicRepository topicRepository;
 	private List<Topic> topics = new ArrayList<>(Arrays.asList(
 			new Topic(1, "spring framework", "spring framework description"),
 			new Topic(2, "java", "java framework description"),
@@ -17,7 +19,9 @@ public class TopicService {
 			));
 	
 	public List<Topic> getAllTopics(){
-		return topics;
+		List<Topic> topics = new ArrayList<>();
+		 topicRepository.findAll().forEach(topics::add);
+		 return topics;
 	}
 
 	public Topic getTopic(int id) {
@@ -25,7 +29,7 @@ public class TopicService {
 	}
 
 	public void addTopic(Topic topic) {
-		topics.add(topic);
+		topicRepository.save(topic);
 	}
 
 	public void update(Topic topic, int id) {
