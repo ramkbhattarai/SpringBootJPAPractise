@@ -15,32 +15,32 @@ import org.springframework.web.bind.annotation.RestController;
 public class CourseController {
 	
 	@Autowired
-	private CourseService topicService;
-	@GetMapping("/topics")
-	public List<Course> getAllTopics() {
+	private CourseService courseService;
+	@GetMapping("/courses")
+	public List<Course> getAllCourses() {
 		
 		
-		return topicService.getAllTopics();
+		return courseService.getAllCourses();
 	}
 	
-	@GetMapping("/topics/{id}")
-	public Course getTopic(@PathVariable int id) {
-		return topicService.getTopic(id);
+	@GetMapping("/courses/{id}")
+	public Course getCourse(@PathVariable int id) {
+		return courseService.getCourse(id);
 	}
 	
-	@PostMapping("/topics")
-	public void addTopic(@RequestBody Course topic) {
-		topicService.addTopic(topic);
+	@PostMapping("/courses")
+	public void addCourse(@RequestBody Course course) {
+		courseService.addCourse(course);
 	}
 	
-	@PutMapping("/topics/{id}")
-	public void updateTopic(@RequestBody Course topic, @PathVariable int id) {
-		topicService.update(topic, id);
+	@PutMapping("/courses/{id}")
+	public void updateCourse(@RequestBody Course course, @PathVariable int id) {
+		courseService.update(course, id);
 	}
 	
-	@DeleteMapping("/topics/{id}")
-	public void deleteTopic(@PathVariable int id) {
-		topicService.delete(id);
+	@DeleteMapping("/courses/{id}")
+	public void deleteCourse(@PathVariable int id) {
+		courseService.delete(id);
 	}
 
 }
