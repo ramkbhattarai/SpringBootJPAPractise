@@ -25,7 +25,7 @@ public class TopicService {
 	}
 
 	public Topic getTopic(int id) {
-		return topics.stream().filter(t -> t.getId() == id).findFirst().get();
+		return topicRepository.findById(id).get();
 	}
 
 	public void addTopic(Topic topic) {
@@ -33,15 +33,11 @@ public class TopicService {
 	}
 
 	public void update(Topic topic, int id) {
-		
-		Topic t1 = topics.stream().filter(t -> t.getId() == id).findFirst().get();
-		t1.setDescription(topic.getDescription());
-		t1.setName(topic.getName());
-		
+		topicRepository.save(topic);
 	}
 
 	public void delete(int id) {
-		topics.removeIf(t -> t.getId() == id);
+		topicRepository.deleteById(id);
 		
 	}
 }
